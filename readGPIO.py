@@ -1,16 +1,11 @@
 import RPi.GPIO as GPIO
-from evdev import uinput, ecodes as e
-
-def tapKey(key):
-    with uinput.UInput() as ui:
-        ui.write(e.EV_KEY, key, 1)
-        ui.write(e.EV_KEY, key, 0)
-        ui.syn()
-
+import keyboard
+from time import sleep
 
 def risingEdgeCallback(self):
-    print "Edge detected"
-    tapKey(e.KEY_H)
+    keyboard.press('5')
+    sleep(0.20)
+    keyboard.release('5')
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
